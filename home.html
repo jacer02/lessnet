@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Personal Website</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f9f9f9; }
+        header { background: #abacae; color:#000000; padding: 1rem; text-align: center; height: 50px; font-family:'Times New Roman', Times, serif;}
+        nav { margin: 1rem 0; text-align: center; }
+        nav a { margin: 0 1rem; color: #b681b5; text-decoration: none; font-weight: bold; }
+        main { max-width: 85%; margin: 2rem auto; background: rgb(215, 222, 255); padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        footer { text-align: center; color: #888; margin: 2rem 0 1rem; }
+        #webpage_name { font-size: 3rem; font-weight: bold; color: #000000; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#home" id="webpage_name" onclick="loadPage('home.html'); return false;">LESS.NET</a>
+    </header>
+    <nav>
+        <a href="#about" onclick="loadPage('about.html'); return false;">About</a>
+        <a href="#dams" onclick="loadPage('dams.html'); return false;">Dams</a>
+        <a href="#products" onclick="loadPage('products.html'); return false;">We are the Product</a>
+        <a href="#music" onclick="loadPage('music.html'); return false;">Music</a>
+    </nav>
+    <main id="content">
+        <!-- Default content or home page content here -->
+        <h2>Welcome to LESS.NET!</h2>
+        <p>This is the home page. Use the navigation above to view other sections.</p>
+    </main>
+    <script>
+    function loadPage(page) {
+        fetch(page)
+            .then(response => response.text())
+            .then(html => {
+                // Extract only the <main> content from the loaded page
+                const temp = document.createElement('div');
+                temp.innerHTML = html;
+                const main = temp.querySelector('main');
+                document.getElementById('content').innerHTML = main ? main.innerHTML : html;
+            })
+            .catch(() => {
+                document.getElementById('content').innerHTML = '<p>Failed to load page.</p>';
+            });
+    }
+    </script>
+</body>
+</html>
